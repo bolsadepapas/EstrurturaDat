@@ -221,10 +221,10 @@ Tiempo de búsqueda: 1.2e-06 segundos.
 
 
 - En este primer caso, se muestra el tiempo de insecion en general del millon de datos en el B-tree, la herramienta usada es GNUplot: 
-![Comparacion grafica de tiempo de insercion con distintas llaves](C:\Users\facun\EstrurturaDat\B-tree\Insecion.JPG)
+![Comparacion grafica de tiempo de insercion con distintas llaves](Insecion.jpeg)
 
 - En este segundo caso, se muestra el tiempo de busqueda de un dato "N" dentro del millon de datos variando el numero de llaves maxima del B-tree: 
-![Comparacion grafica de tiempo de busqueda con distintas llaves](C:\Users\facun\EstrurturaDat\B-tree\Busqueda.JPG)
+![Comparacion grafica de tiempo de busqueda con distintas llaves](Busqueda.jpeg)
 
 ## 8. Conculsiones y Recomendaciones  
 
