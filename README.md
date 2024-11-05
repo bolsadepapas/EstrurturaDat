@@ -1,4 +1,4 @@
-"# EstrurturaDatos" 
+## EstrurturaDatos 
 
 **Integrantes**:
 - **[Basurco Monrroy Luis Gonzalo]**
