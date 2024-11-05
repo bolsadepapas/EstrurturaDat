@@ -221,7 +221,7 @@ Tiempo de búsqueda: 1.2e-06 segundos.
 
 
 
-![Comparacion de Threads y Secuenciales](c:\Users\facun\lp3\EXAMEN1\pregunta02\comparacion.png)
+![Comparacion grafica de tiempo de busqueda con distintas llaves](c:\Users\facun\lp3\EXAMEN1\pregunta02\comparacion.png)
 
 
 ## 8. Conculsiones y Recomendaciones  
