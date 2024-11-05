@@ -8,7 +8,7 @@
 - **[Sanz Palomino Facundo Alejandro]**: [100%]
 
 - **Fecha**: [04/11/2024]
-- **Link de codigo**: [https://drive.google.com/drive/folders/1wusI5-LtWjDembhqVZ10jJmj_JmeTFcD?usp=sharing]
+- **Link de codigo**: [https://github.com/bolsadepapas/EstrurturaDat.git]
 
 ---
 
@@ -214,15 +214,17 @@ Ingrese el valor a buscar en el B-tree: 0.7710434640053802
 Valor encontrado en el B-tree.
 Tiempo de búsqueda: 1.2e-06 segundos.
 ```
-    Al terminar todos los datos son guardados en un .txt para posteriormente poder hace una grafica de comparacion
+- Al terminar todos los datos son guardados en un .txt para posteriormente poder hace una grafica de comparacion
 
 
 ## 7.Grafico de Comparacion de los tiempos de busqueda con variacion en el (N) llaves : 
 
 
+- En este primer caso, se muestra el tiempo de insecion en general del millon de datos en el B-tree, la herramienta usada es GNUplot: 
+![Comparacion grafica de tiempo de insercion con distintas llaves](C:\Users\facun\EstrurturaDat\B-tree\Insecion.JPG)
 
-![Comparacion grafica de tiempo de busqueda con distintas llaves](c:\Users\facun\lp3\EXAMEN1\pregunta02\comparacion.png)
-
+- En este segundo caso, se muestra el tiempo de busqueda de un dato "N" dentro del millon de datos variando el numero de llaves maxima del B-tree: 
+![Comparacion grafica de tiempo de busqueda con distintas llaves](C:\Users\facun\EstrurturaDat\B-tree\Busqueda.JPG)
 
 ## 8. Conculsiones y Recomendaciones  
 
