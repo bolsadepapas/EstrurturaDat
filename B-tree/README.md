@@ -217,14 +217,21 @@ Tiempo de búsqueda: 1.2e-06 segundos.
 - Al terminar todos los datos son guardados en un .txt para posteriormente poder hace una grafica de comparacion
 
 
-## 7.Grafico de Comparacion de los tiempos de busqueda con variacion en el (N) llaves : 
+## 7.Graficos de Comparacion de los tiempos de busqueda con variacion en el (N) llaves / comentarios 
 
 
 - En este primer caso, se muestra el tiempo de insecion en general del millon de datos en el B-tree, la herramienta usada es GNUplot: 
 ![Comparacion grafica de tiempo de insercion con distintas llaves](Insercion.jpeg)
 
+**Comentario**: Al aumentar el número de llaves máximas por nodo en el B-tree, el árbol se vuelve menos profundo, lo cual reduce el tiempo de inserción, esto hace que se disminuya la cantidad de divisiones necesarias. Sin embargo,cabe aclarar que (demasiadas llaves pueden aumentar la complejidad dentro de cada nodo),esto afectaria el rendimiento. Por eso se observa una diferencia de tiempo entre el tiempo de insercion de los archivos.
+
 - En este segundo caso, se muestra el tiempo de busqueda de un dato "N" dentro del millon de datos variando el numero de llaves maxima del B-tree: 
+
 ![Comparacion grafica de tiempo de busqueda con distintas llaves](Busqueda.jpeg)
+
+
+**Comentario**: Como ya sabemos mientras mas llaves por nodo, el B-tree tiene menos niveles, lo que agiliza la búsqueda al reducir la cantidad de pasos. Aun así, nodos más grandes requieren más comparaciones internas, lo cual podría compensar esta ventaja. Es por eso que vemos una leve variación entre los tiempos de busqueda de los datos.
+
 
 ## 8. Conculsiones y Recomendaciones  
 
