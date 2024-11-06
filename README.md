@@ -1,4 +1,4 @@
-## EstrurturaDatos 
+## Estructura de Datos 
 
 **Integrantes**:
 - **[Basurco Monrroy Luis Gonzalo]**

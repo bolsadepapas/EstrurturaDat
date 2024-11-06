@@ -3,9 +3,9 @@
 ## 1. Nombre de los Integrantes / Fecha / Link 
 
 **Integrantes**:
-- **[Basurco Monrroy Luis Gonzalo]**: [100%]
-- **[Marquez Zuñiga Johan Leonardo]**: [100%]
-- **[Sanz Palomino Facundo Alejandro]**: [100%]
+- **Basurco Monrroy Luis Gonzalo**
+- **Marquez Zuñiga Johan Leonardo**
+- **Sanz Palomino Facundo Alejandro**
 
 - **Fecha**: [04/11/2024]
 - **Link de codigo**: [https://github.com/bolsadepapas/EstrurturaDat.git]
