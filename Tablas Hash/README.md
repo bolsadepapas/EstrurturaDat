@@ -34,7 +34,7 @@ Una **tabla hash** es una estructura de datos utilizada para almacenar datos de 
 ---
 ## 2. Explicación del Problema 
 
-El objetivo del siguiente laboratorio,es implementar las distintas funciones dadas por el docente mediante segmentos de codigo de lenguaje **.Py** ; en un programa que impmenente las mismas funciones pero que sean en lenguaje **.c++**  
+- El objetivo del siguiente laboratorio,es implementar las distintas funciones dadas por el docente mediante segmentos de codigo de lenguaje **.Py** ; en un programa que impmenente las mismas funciones pero que sean en lenguaje **.c++**  
 ---
 ## 3.Funciones Base
 
