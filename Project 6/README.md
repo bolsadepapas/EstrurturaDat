@@ -7,7 +7,7 @@
 - **Marquez Zuñiga Johan Leonardo**
 - **Sanz Palomino Facundo Alejandro**
 
-- **Fecha**: [04/11/2024]
+- **Fecha**: [14/11/2024]
 - **Link de codigo**: [https://github.com/bolsadepapas/EstrurturaDat.git]
 
 ## 1. Marco Teorico 
