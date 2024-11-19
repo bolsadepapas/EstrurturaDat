@@ -13,7 +13,7 @@
 ## 1. Marco Teorico 
 
 ### ¿De que trata el proyecto?
-- La orientacion del proyecto va a la gestión eficiente de una base de datos en este caso **canciones.csv** utilizand herramientas e algoritmos de ordenamintos optimos aprendidos a lo largo del curso de **Estructura de Datos**, lo que nos permite cargar canciones desde un archivo CSV, buscar canciones/artistas rápidamente
+- La orientacion del proyecto va a la gestión eficiente de una base de datos en este caso **canciones.csv** utilizando herramientas e algoritmos de ordenamintos optimos aprendidos a lo largo del curso de **Estructura de Datos**, lo que nos permite cargar canciones desde un archivo CSV, buscar canciones/artistas rápidamente
 y agregar nuevas canciones que se almacenan en alguna estructura que permite una manejo rapido de toda la data proporcionada, aparte de que se implementa **CRUD** que es un conjunto de operaciones base para la manipulacion de informacion/datos en valga la redundancia **Base de Datos** y distintas aplicaciones que gestionan infomacion en grandes cantidades
 tambien se segmento el codigo en 3 arhivos distintos; **main.cpp**; **playlist.cpp**; **playlist.h**. 
 
