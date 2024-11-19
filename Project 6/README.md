@@ -26,7 +26,7 @@ tambien se segmento el codigo en 3 arhivos distintos; **main.cpp**; **playlist.c
 - **Ajuste dinámico del tamaño de la lista de reproducción de acuerdo a cambios**
     
 ---
-## 2. Explicación del Abance temprano del proyecto.  
+## 2. Explicación del Avance temprano del proyecto.  
 
 El primer enfoque del proyecto fue el desarrolar/implementar una estructura capaz de manejar datos masivos como en este caso **Canciones.csv**; y la primera idea que surgio fue la de implementar *B-tree* tenemos diferentes motivos, los cuales son que ya hemos desarrolado/implementado esta estructura de busqueda, otro de los grandes motivos es su rapideza en cuanto a la insercion de los datos que se desean manejar y aun mas la busqueda de los mismo teniendo un tiempo de busqueda, insercion y eliminacion de **O(logn)**, lo que es muy util en este proyecto. 
 
