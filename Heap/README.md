@@ -8,7 +8,7 @@
 - **Sanz Palomino Facundo Alejandro**
 
 - **Fecha**: [18/11/2024]
-- **Link de codigo**: [https://onlinegdb.com/dMR2eCb0J]
+- **Link de codigo**: [https://onlinegdb.com/Prw32fd_N]
 
 ## 1. Marco Teorico 
 
