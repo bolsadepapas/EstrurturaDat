@@ -13,7 +13,7 @@
 ## 1. Marco Teorico 
 
 ### ¿De que trata el laboratiorio-10?
-- Lo que nos solicita el docente es que implementemos **enqueue** con valores **(V,K)**, lo que tenemos que hacer es insertar un elemento con un **V** en este caso un valor y un **K** en este caso un clave, en la estructura **Heap**, tambien lo que se nos solicita es que el programa deberia ser capaz de mostrar estos valores que esta siendo almancenados en un **Heap** esto a modo de comprobación.
+- Lo que nos solicita el docente es que implementemos **enqueue** con valores **(V,K)**, lo que tenemos que hacer es insertar un elemento con un **V** en este caso un valor y un **K** en este caso un clave en la estructura **Heap**; tambien lo que se nos solicita es que el programa deberia ser capaz de mostrar estos valores que esta siendo almancenados en un **Heap** esto a modo de comprobación.
 
 ### Entendiendo el codigo proporcionado
 
