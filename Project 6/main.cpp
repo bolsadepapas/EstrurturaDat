@@ -52,13 +52,12 @@ void agregarCancion(BTree &tree, const std::string &filename, int &ultimoOrderID
     std::cin >> nuevaCancion.year;
     std::cin.ignore();
 
-    // Generar un nuevo order_id
+  
     nuevaCancion.order_id = ++ultimoOrderID;
 
-    // Insertar en el árbol B
+    
     tree.insert(nuevaCancion);
 
-    // Guardar en el archivo CSV
     std::ofstream file(filename, std::ios::app);
     if (file.is_open()) {
         file << nuevaCancion.order_id << ","
@@ -80,7 +79,34 @@ void buscarCancion(BTree &tree) {
     tree.search(query);
 }
 
-int main() {
+void reproduccionAleatoria(BTree &tree) {
+    std::vector<Cancion> canciones;
+    BTreeNode* root = tree.getRoot();  
+    if (root) {  
+        root->collectSongs(canciones); 
+    }
+
+
+    std::shuffle(canciones.begin(), canciones.end(), std::default_random_engine(std::random_device()()));
+
+    int maxMostrar = std::min(15, (int)canciones.size()); 
+    std::cout << "\nReproducción Aleatoria: Estas son las canciones que se reproducirán:" << std::endl;
+    for (int i = 0; i < maxMostrar; i++) {
+        std::cout << i + 1 << ". " << canciones[i].artist_name << " - " << canciones[i].track_name << std::endl;
+    }
+}
+
+void menuOrdenamiento(BTree &tree) {
+    std::string criterio;
+    bool asc;
+    std::cout << "Seleccione el criterio de ordenamiento (popularidad, año, nombre): ";
+    std::cin >> criterio;
+    std::cout << "Orden ascendente (1) o descendente (0): ";
+    std::cin >> asc;
+    tree.sortSongs(criterio, asc);
+}
+
+main() {
     #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
@@ -98,7 +124,8 @@ int main() {
         std::cout << "\n--- Menú ---\n";
         std::cout << "1. Buscar canción\n";
         std::cout << "2. Agregar canción\n";
-        std::cout << "3. Salir\n";
+        std::cout << "3. Reproducción Aleatoria\n";  
+        std::cout << "4. Salir\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
         std::cin.ignore();
@@ -111,12 +138,15 @@ int main() {
                 agregarCancion(tree, "canciones.csv", ultimoOrderID);
                 break;
             case 3:
+                reproduccionAleatoria(tree);  
+                break;
+            case 4:
                 std::cout << "Saliendo del programa...\n";
                 break;
             default:
                 std::cout << "Opción no válida. Intente de nuevo.\n";
         }
-    } while (opcion != 3);
+    } while (opcion != 4);
 
     return 0;
 }

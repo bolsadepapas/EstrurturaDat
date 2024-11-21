@@ -3,6 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm> 
+#include <random> 
+#include <map>
 
 struct Cancion {
     int order_id;
@@ -27,7 +31,9 @@ public:
     void insertNonFull(Cancion k);
     void splitChild(int i, BTreeNode *y);
     void search(const std::string &term);
+    void collectSongs(std::vector<Cancion>& songs);
     friend class BTree;
+  
 };
 
 class BTree {
@@ -38,6 +44,9 @@ public:
     BTree(int grado) : root(nullptr), t(grado) {}
     void insert(Cancion k);
     void search(const std::string &term);
+    void shuffle();
+    void sortSongs(std::string criterio, bool asc);
+    BTreeNode* getRoot() { return root; }
 };
 
 #endif // PLAYLIST_H

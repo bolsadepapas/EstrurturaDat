@@ -2,6 +2,9 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
 
 BTreeNode::BTreeNode(int grado, bool esHoja) {
     t = grado;
@@ -98,3 +101,67 @@ void BTree::search(const std::string &term) {
     else
         std::cout << "No se encontraron coincidencias para: " << term << std::endl;
 }
+
+void BTreeNode::collectSongs(std::vector<Cancion>& songs) {
+ 
+    for (int i = 0; i < n; i++) {
+        songs.push_back(keys[i]);
+    }
+
+    if (!leaf) {
+        for (int i = 0; i <= n; i++) {
+            children[i]->collectSongs(songs);  
+        }
+    }
+}
+
+void BTree::shuffle() {
+    if (!root) {
+        std::cout << "No hay canciones en la lista de reproducción." << std::endl;
+        return;
+    }
+
+    std::vector<Cancion> songs;
+    root->collectSongs(songs); 
+
+  
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(songs.begin(), songs.end(), g);
+
+   
+    std::cout << "Reproducción aleatoria:" << std::endl;
+    for (const auto &song : songs) {
+        std::cout << song.track_name << " - " << song.artist_name << std::endl;
+    }
+}
+
+
+void BTree::sortSongs(std::string criterio, bool asc) {
+    if (!root) {
+        std::cout << "No hay canciones en la lista de reproducción." << std::endl;
+        return;
+    }
+
+    std::vector<Cancion> songs;
+    root->collectSongs(songs); 
+
+   
+    std::sort(songs.begin(), songs.end(), [&](const Cancion &a, const Cancion &b) {
+        if (criterio == "popularidad") {
+            return asc ? a.popularity < b.popularity : a.popularity > b.popularity;
+        } else if (criterio == "año") {
+            return asc ? a.year < b.year : a.year > b.year;
+        } else if (criterio == "nombre") {
+            return asc ? a.track_name < b.track_name : a.track_name > b.track_name;
+        }
+        return false; 
+    });
+
+    
+    std::cout << "Canciones ordenadas por " << criterio << ":" << std::endl;
+    for (const auto &song : songs) {
+        std::cout << song.track_name << " - " << song.artist_name << std::endl;
+    }
+}
+
