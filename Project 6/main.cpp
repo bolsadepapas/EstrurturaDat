@@ -22,7 +22,7 @@ void cargarCancionesDesdeCSV(const std::string &filename, BTree &tree, int &ulti
         std::string order;
         Cancion c;
 
-        getline(ss, order, ',');  // Leer y descartar el primer valor
+        getline(ss, order, ',');  
         c.order_id = std::stoi(order);
         if (c.order_id > ultimoOrderID) ultimoOrderID = c.order_id;
 
@@ -52,20 +52,15 @@ void agregarCancion(BTree &tree, const std::string &filename, int &ultimoOrderID
     std::cin >> nuevaCancion.year;
     std::cin.ignore();
 
-  
     nuevaCancion.order_id = ++ultimoOrderID;
 
-    
     tree.insert(nuevaCancion);
 
     std::ofstream file(filename, std::ios::app);
     if (file.is_open()) {
-        file << nuevaCancion.order_id << ","
-             << nuevaCancion.artist_name << ","
-             << nuevaCancion.track_name << ","
-             << nuevaCancion.track_id << ","
-             << nuevaCancion.popularity << ","
-             << nuevaCancion.year << "\n";
+        file << nuevaCancion.order_id << "," << nuevaCancion.artist_name << "," 
+             << nuevaCancion.track_name << "," << nuevaCancion.track_id << "," 
+             << nuevaCancion.popularity << "," << nuevaCancion.year << "\n";
         file.close();
     }
 
@@ -81,41 +76,82 @@ void buscarCancion(BTree &tree) {
 
 void reproduccionAleatoria(BTree &tree) {
     std::vector<Cancion> canciones;
-    BTreeNode* root = tree.getRoot();  
-    if (root) {  
-        root->collectSongs(canciones); 
+    BTreeNode* root = tree.getRoot();
+    if (root) {
+        root->collectSongs(canciones);
     }
-
 
     std::shuffle(canciones.begin(), canciones.end(), std::default_random_engine(std::random_device()()));
 
-    int maxMostrar = std::min(15, (int)canciones.size()); 
+    int maxMostrar = std::min(15, (int)canciones.size());
     std::cout << "\nReproducción Aleatoria: Estas son las canciones que se reproducirán:" << std::endl;
     for (int i = 0; i < maxMostrar; i++) {
         std::cout << i + 1 << ". " << canciones[i].artist_name << " - " << canciones[i].track_name << std::endl;
     }
 }
 
-void menuOrdenamiento(BTree &tree) {
-    std::string criterio;
-    bool asc;
-    std::cout << "Seleccione el criterio de ordenamiento (popularidad, año, nombre): ";
-    std::cin >> criterio;
-    std::cout << "Orden ascendente (1) o descendente (0): ";
-    std::cin >> asc;
-    tree.sortSongs(criterio, asc);
+void submenuGestionPlaylists(PlaylistManager &manager, int &ultimoOrderID) {
+    int opcionSubmenu = 0;
+
+    while (opcionSubmenu != 6) {
+        std::cout << "\n--- Submenú de Gestión de Playlists ---\n";
+        std::cout << "1. Crear nueva playlist\n";
+        std::cout << "2. Eliminar playlist\n";
+        std::cout << "3. Renombrar playlist\n";
+        std::cout << "4. Transferir canción entre playlists\n";
+        std::cout << "5. Mostrar playlists disponibles\n";
+        std::cout << "6. Regresar al menú principal\n";
+        std::cout << "Seleccione una opción: ";
+        std::cin >> opcionSubmenu;
+        std::cin.ignore();
+
+        if (opcionSubmenu == 1) {
+            std::string nombre;
+            std::cout << "Nombre de la nueva playlist: ";
+            std::getline(std::cin, nombre);
+            manager.crearPlaylist(nombre, 5);
+        } else if (opcionSubmenu == 2) {
+            std::string nombre;
+            std::cout << "Nombre de la playlist a eliminar: ";
+            std::getline(std::cin, nombre);
+            manager.eliminarPlaylist(nombre);
+        } else if (opcionSubmenu == 3) {
+            std::string nombre, nuevoNombre;
+            std::cout << "Nombre actual de la playlist: ";
+            std::getline(std::cin, nombre);
+            std::cout << "Nuevo nombre: ";
+            std::getline(std::cin, nuevoNombre);
+            manager.renombrarPlaylist(nombre, nuevoNombre);
+        } else if (opcionSubmenu == 4) {
+            std::string origen, destino, cancion;
+            std::cout << "Playlist origen: ";
+            std::getline(std::cin, origen);
+            std::cout << "Playlist destino: ";
+            std::getline(std::cin, destino);
+            std::cout << "Nombre de la canción: ";
+            std::getline(std::cin, cancion);
+            manager.transferirCancion(origen, destino, cancion);
+        } else if (opcionSubmenu == 5) {
+            manager.mostrarPlaylists();
+        } else if (opcionSubmenu == 6) {
+            std::cout << "Regresando al menú principal...\n";
+        } else {
+            std::cout << "Opción no válida. Intente de nuevo.\n";
+        }
+    }
 }
 
-main() {
-    #ifdef _WIN32
+int main() {
+#ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
-    #endif
+#endif
 
     BTree tree(5);
     int ultimoOrderID = 0;
     cargarCancionesDesdeCSV("canciones.csv", tree, ultimoOrderID);
 
+    PlaylistManager manager;
     mostrarBienvenida();
     std::cin.ignore();
 
@@ -124,8 +160,9 @@ main() {
         std::cout << "\n--- Menú ---\n";
         std::cout << "1. Buscar canción\n";
         std::cout << "2. Agregar canción\n";
-        std::cout << "3. Reproducción Aleatoria\n";  
-        std::cout << "4. Salir\n";
+        std::cout << "3. Reproducción Aleatoria\n";
+        std::cout << "4. Gestión de Playlists\n";  // Nueva opción
+        std::cout << "5. Salir\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
         std::cin.ignore();
@@ -138,15 +175,18 @@ main() {
                 agregarCancion(tree, "canciones.csv", ultimoOrderID);
                 break;
             case 3:
-                reproduccionAleatoria(tree);  
+                reproduccionAleatoria(tree);
                 break;
             case 4:
+                submenuGestionPlaylists(manager, ultimoOrderID);  // Submenú de playlists
+                break;
+            case 5:
                 std::cout << "Saliendo del programa...\n";
                 break;
             default:
                 std::cout << "Opción no válida. Intente de nuevo.\n";
         }
-    } while (opcion != 4);
+    } while (opcion != 5);
 
     return 0;
 }

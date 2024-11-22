@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <random>
 
+// Constructor del nodo
 BTreeNode::BTreeNode(int grado, bool esHoja) {
     t = grado;
     leaf = esHoja;
@@ -14,7 +15,19 @@ BTreeNode::BTreeNode(int grado, bool esHoja) {
     n = 0;
 }
 
-void BTreeNode::insertNonFull(Cancion k) {
+// Destructor del nodo
+BTreeNode::~BTreeNode() {
+    if (!leaf) {
+        for (int i = 0; i <= n; ++i) {
+            delete children[i];
+        }
+    }
+    delete[] keys;
+    delete[] children;
+}
+
+// Métodos del nodo
+void BTreeNode::insertNonFull(const Cancion& k) {
     int i = n - 1;
     if (leaf) {
         while (i >= 0 && k.track_name < keys[i].track_name) {
@@ -58,7 +71,41 @@ void BTreeNode::splitChild(int i, BTreeNode *y) {
     n++;
 }
 
-void BTree::insert(Cancion k) {
+Cancion* BTreeNode::search(const std::string& term) {
+    for (int i = 0; i < n; i++) {
+        if (keys[i].track_name.find(term) != std::string::npos ||
+            keys[i].artist_name.find(term) != std::string::npos) {
+            std::cout << "Artista: " << keys[i].artist_name 
+                      << " - Canción: " << keys[i].track_name << std::endl;
+        }
+    }
+    if (!leaf) {
+        for (int i = 0; i <= n; i++) {
+            children[i]->search(term);
+        }
+    }
+    return nullptr;
+}
+
+void BTreeNode::collectSongs(std::vector<Cancion>& songs) {
+    for (int i = 0; i < n; i++) {
+        songs.push_back(keys[i]);
+    }
+
+    if (!leaf) {
+        for (int i = 0; i <= n; i++) {
+            children[i]->collectSongs(songs);  
+        }
+    }
+}
+
+// Destructor del árbol
+BTree::~BTree() {
+    delete root; // Esto llama al destructor de BTreeNode
+}
+
+// Métodos del árbol
+void BTree::insert(const Cancion& k) {
     if (!root) {
         root = new BTreeNode(t, true);
         root->keys[0] = k;
@@ -80,39 +127,12 @@ void BTree::insert(Cancion k) {
     }
 }
 
-void BTreeNode::search(const std::string &term) {
-    for (int i = 0; i < n; i++) {
-        if (keys[i].track_name.find(term) != std::string::npos ||
-            keys[i].artist_name.find(term) != std::string::npos) {
-            std::cout << "Artista: " << keys[i].artist_name 
-                      << " - Canción: " << keys[i].track_name << std::endl;
-        }
-    }
-    if (!leaf) {
-        for (int i = 0; i <= n; i++) {
-            children[i]->search(term);
-        }
-    }
-}
-
-void BTree::search(const std::string &term) {
+Cancion* BTree::search(const std::string& term) {
     if (root)
-        root->search(term);
+        return root->search(term);
     else
         std::cout << "No se encontraron coincidencias para: " << term << std::endl;
-}
-
-void BTreeNode::collectSongs(std::vector<Cancion>& songs) {
- 
-    for (int i = 0; i < n; i++) {
-        songs.push_back(keys[i]);
-    }
-
-    if (!leaf) {
-        for (int i = 0; i <= n; i++) {
-            children[i]->collectSongs(songs);  
-        }
-    }
+    return nullptr;
 }
 
 void BTree::shuffle() {
@@ -124,20 +144,17 @@ void BTree::shuffle() {
     std::vector<Cancion> songs;
     root->collectSongs(songs); 
 
-  
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(songs.begin(), songs.end(), g);
 
-   
     std::cout << "Reproducción aleatoria:" << std::endl;
     for (const auto &song : songs) {
         std::cout << song.track_name << " - " << song.artist_name << std::endl;
     }
 }
 
-
-void BTree::sortSongs(std::string criterio, bool asc) {
+void BTree::sortSongs(const std::string& criterio, bool asc) {
     if (!root) {
         std::cout << "No hay canciones en la lista de reproducción." << std::endl;
         return;
@@ -146,7 +163,6 @@ void BTree::sortSongs(std::string criterio, bool asc) {
     std::vector<Cancion> songs;
     root->collectSongs(songs); 
 
-   
     std::sort(songs.begin(), songs.end(), [&](const Cancion &a, const Cancion &b) {
         if (criterio == "popularidad") {
             return asc ? a.popularity < b.popularity : a.popularity > b.popularity;
@@ -158,10 +174,84 @@ void BTree::sortSongs(std::string criterio, bool asc) {
         return false; 
     });
 
-    
     std::cout << "Canciones ordenadas por " << criterio << ":" << std::endl;
     for (const auto &song : songs) {
         std::cout << song.track_name << " - " << song.artist_name << std::endl;
     }
 }
 
+void PlaylistManager::crearPlaylist(const std::string& nombre, int grado) {
+    if (nombre.empty()) {
+        std::cout << "El nombre de la playlist no puede estar vacío.\n";
+        return;
+    }
+
+    if (playlists.find(nombre) != playlists.end()) {
+        std::cout << "La playlist \"" << nombre << "\" ya existe.\n";
+        return;
+    }
+
+    playlists[nombre] = BTree(grado);
+    std::cout << "Playlist \"" << nombre << "\" creada exitosamente.\n";
+}
+
+void PlaylistManager::eliminarPlaylist(const std::string& nombre) {
+    if (playlists.erase(nombre)) {
+        std::cout << "Playlist \"" << nombre << "\" eliminada.\n";
+    } else {
+        std::cout << "La playlist \"" << nombre << "\" no existe.\n";
+    }
+}
+
+void PlaylistManager::renombrarPlaylist(const std::string& nombreActual, const std::string& nuevoNombre) {
+    auto it = playlists.find(nombreActual);
+    if (it == playlists.end()) {
+        std::cout << "La playlist \"" << nombreActual << "\" no existe.\n";
+        return;
+    }
+    playlists[nuevoNombre] = it->second;
+    playlists.erase(it);
+    std::cout << "Playlist \"" << nombreActual << "\" renombrada a \"" << nuevoNombre << "\".\n";
+}
+
+void PlaylistManager::transferirCancion(const std::string& origen, const std::string& destino, const std::string& cancion) {
+    auto itOrigen = playlists.find(origen);
+    auto itDestino = playlists.find(destino);
+    if (itOrigen == playlists.end() || itDestino == playlists.end()) {
+        std::cout << "Una de las playlists no existe.\n";
+        return;
+    }
+
+    std::vector<Cancion> canciones;
+    itOrigen->second.getRoot()->collectSongs(canciones);
+
+    auto it = std::find_if(canciones.begin(), canciones.end(), [&](const Cancion& c) {
+        return c.track_name == cancion;
+    });
+
+    if (it != canciones.end()) {
+        itDestino->second.insert(*it);
+        std::cout << "Canción \"" << cancion << "\" transferida de \"" << origen << "\" a \"" << destino << "\".\n";
+    } else {
+        std::cout << "La canción \"" << cancion << "\" no se encontró en la playlist \"" << origen << "\".\n";
+    }
+}
+
+void PlaylistManager::mostrarPlaylists() {
+    if (playlists.empty()) {
+        std::cout << "No hay playlists disponibles.\n";
+        return;
+    }
+    std::cout << "Playlists disponibles:\n";
+    for (const auto& [nombre, _] : playlists) {
+        std::cout << "- " << nombre << "\n";
+    }
+}
+
+BTree* PlaylistManager::obtenerPlaylist(const std::string& nombre) {
+    auto it = playlists.find(nombre);
+    if (it != playlists.end()) {
+        return &it->second;
+    }
+    return nullptr;
+}
