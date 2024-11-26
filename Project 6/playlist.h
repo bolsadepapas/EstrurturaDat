@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm> 
-#include <random> 
+#include <algorithm>
+#include <random>
 #include <map>
 
 /// **Estructura Cancion** ///
@@ -55,6 +55,7 @@ public:
     Cancion* search(const std::string& term);       // Busca una canción por término.
     void shuffle();                                 // Reproduce canciones aleatoriamente.
     void sortSongs(const std::string& criterio, bool asc); // Ordena canciones por criterio.
+    void getSongsByYear(int year, std::vector<Cancion>& songs); // Filtra canciones por año.
 
     // Getter de la raíz
     BTreeNode* getRoot() { return root; }

@@ -140,6 +140,30 @@ void submenuGestionPlaylists(PlaylistManager &manager, int &ultimoOrderID) {
         }
     }
 }
+void mostrarTopCancionesPorAno(BTree& tree) {
+    int year;
+    std::cout << "Ingrese el año para mostrar las 100 mejores canciones: ";
+    std::cin >> year;
+
+    std::vector<Cancion> cancionesDelAno;
+    tree.getSongsByYear(year, cancionesDelAno);
+
+    std::sort(cancionesDelAno.begin(), cancionesDelAno.end(), [](const Cancion& a, const Cancion& b) {
+        return a.popularity > b.popularity;
+    });
+
+    std::cout << "\nTop 100 canciones del año " << year << ":\n";
+    int limite = std::min(100, (int)cancionesDelAno.size());
+    for (int i = 0; i < limite; ++i) {
+        const auto& cancion = cancionesDelAno[i];
+        std::cout << i + 1 << ". " << cancion.track_name << " - " << cancion.artist_name 
+                  << " (Popularidad: " << cancion.popularity << ")\n";
+    }
+
+    if (limite == 0) {
+        std::cout << "No se encontraron canciones para el año " << year << ".\n";
+    }
+}
 
 int main() {
 #ifdef _WIN32
@@ -147,7 +171,7 @@ int main() {
     SetConsoleCP(CP_UTF8);
 #endif
 
-    BTree tree(5);
+     BTree tree(5);
     int ultimoOrderID = 0;
     cargarCancionesDesdeCSV("canciones.csv", tree, ultimoOrderID);
 
@@ -161,8 +185,9 @@ int main() {
         std::cout << "1. Buscar canción\n";
         std::cout << "2. Agregar canción\n";
         std::cout << "3. Reproducción Aleatoria\n";
-        std::cout << "4. Gestión de Playlists\n";  // Nueva opción
-        std::cout << "5. Salir\n";
+        std::cout << "4. Gestión de Playlists\n";
+        std::cout << "5. Mostrar Top 100 canciones de un año\n";
+        std::cout << "6. Salir\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcion;
         std::cin.ignore();
@@ -178,15 +203,18 @@ int main() {
                 reproduccionAleatoria(tree);
                 break;
             case 4:
-                submenuGestionPlaylists(manager, ultimoOrderID);  // Submenú de playlists
+                submenuGestionPlaylists(manager, ultimoOrderID);
                 break;
             case 5:
+                mostrarTopCancionesPorAno(tree);
+                break;
+            case 6:
                 std::cout << "Saliendo del programa...\n";
                 break;
             default:
                 std::cout << "Opción no válida. Intente de nuevo.\n";
         }
-    } while (opcion != 5);
+    } while (opcion != 6);
 
     return 0;
 }

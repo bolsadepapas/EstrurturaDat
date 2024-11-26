@@ -87,21 +87,20 @@ Cancion* BTreeNode::search(const std::string& term) {
     return nullptr;
 }
 
+
 void BTreeNode::collectSongs(std::vector<Cancion>& songs) {
     for (int i = 0; i < n; i++) {
         songs.push_back(keys[i]);
     }
-
     if (!leaf) {
         for (int i = 0; i <= n; i++) {
-            children[i]->collectSongs(songs);  
+            children[i]->collectSongs(songs);
         }
     }
 }
 
-// Destructor del árbol
 BTree::~BTree() {
-    delete root; // Esto llama al destructor de BTreeNode
+    delete root;
 }
 
 // Métodos del árbol
@@ -254,4 +253,16 @@ BTree* PlaylistManager::obtenerPlaylist(const std::string& nombre) {
         return &it->second;
     }
     return nullptr;
+}
+
+void BTree::getSongsByYear(int year, std::vector<Cancion>& songs) {
+    if (root) {
+        std::vector<Cancion> allSongs;
+        root->collectSongs(allSongs);
+        for (const auto& cancion : allSongs) {
+            if (cancion.year == year) {
+                songs.push_back(cancion);
+            }
+        }
+    }
 }
