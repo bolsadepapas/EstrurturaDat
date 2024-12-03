@@ -93,14 +93,13 @@ void reproduccionAleatoria(BTree &tree) {
 void submenuGestionPlaylists(PlaylistManager &manager, int &ultimoOrderID) {
     int opcionSubmenu = 0;
 
-    while (opcionSubmenu != 6) {
+    while (opcionSubmenu != 5) {
         std::cout << "\n--- Submenú de Gestión de Playlists ---\n";
         std::cout << "1. Crear nueva playlist\n";
         std::cout << "2. Eliminar playlist\n";
-        std::cout << "3. Renombrar playlist\n";
-        std::cout << "4. Transferir canción entre playlists\n";
-        std::cout << "5. Mostrar playlists disponibles\n";
-        std::cout << "6. Regresar al menú principal\n";
+        std::cout << "3. Mostrar playlists disponibles\n";
+        std::cout << "4. Buscar y agregar canciones a una playlist\n";
+        std::cout << "5. Regresar al menú principal\n";
         std::cout << "Seleccione una opción: ";
         std::cin >> opcionSubmenu;
         std::cin.ignore();
@@ -116,30 +115,25 @@ void submenuGestionPlaylists(PlaylistManager &manager, int &ultimoOrderID) {
             std::getline(std::cin, nombre);
             manager.eliminarPlaylist(nombre);
         } else if (opcionSubmenu == 3) {
-            std::string nombre, nuevoNombre;
-            std::cout << "Nombre actual de la playlist: ";
-            std::getline(std::cin, nombre);
-            std::cout << "Nuevo nombre: ";
-            std::getline(std::cin, nuevoNombre);
-            manager.renombrarPlaylist(nombre, nuevoNombre);
-        } else if (opcionSubmenu == 4) {
-            std::string origen, destino, cancion;
-            std::cout << "Playlist origen: ";
-            std::getline(std::cin, origen);
-            std::cout << "Playlist destino: ";
-            std::getline(std::cin, destino);
-            std::cout << "Nombre de la canción: ";
-            std::getline(std::cin, cancion);
-            manager.transferirCancion(origen, destino, cancion);
-        } else if (opcionSubmenu == 5) {
             manager.mostrarPlaylists();
-        } else if (opcionSubmenu == 6) {
+        } else if (opcionSubmenu == 4) {
+            std::string playlistNombre;
+            std::cout << "Nombre de la playlist a la que desea agregar canciones: ";
+            std::getline(std::cin, playlistNombre);
+
+            if (manager.obtenerPlaylist(playlistNombre)) {
+                manager.agregarCancionAPlaylist(playlistNombre);
+            } else {
+                std::cout << "La playlist \"" << playlistNombre << "\" no existe.\n";
+            }
+        } else if (opcionSubmenu == 5) {
             std::cout << "Regresando al menú principal...\n";
         } else {
             std::cout << "Opción no válida. Intente de nuevo.\n";
         }
     }
 }
+
 void mostrarTopCancionesPorAno(BTree& tree) {
     int year;
     std::cout << "Ingrese el año para mostrar las 100 mejores canciones: ";
@@ -173,9 +167,9 @@ int main() {
 
      BTree tree(5);
     int ultimoOrderID = 0;
-    cargarCancionesDesdeCSV("canciones.csv", tree, ultimoOrderID);
-
+    cargarCancionesDesdeCSV("canciones.csv", tree, ultimoOrderID); 
     PlaylistManager manager;
+    manager.cargarPlaylists();
     mostrarBienvenida();
     std::cin.ignore();
 
@@ -218,3 +212,4 @@ int main() {
 
     return 0;
 }
+

@@ -61,17 +61,23 @@ public:
     BTreeNode* getRoot() { return root; }
 };
 
-/// **Clase PlaylistManager** ///
+
 class PlaylistManager {
-    std::map<std::string, BTree> playlists; // Map de playlists.
+    std::map<std::string, BTree> playlists; 
+
+
+    void guardarPlaylist(const std::string& nombre);
+    void cargarPlaylist(const std::string& nombre);
 
 public:
     void crearPlaylist(const std::string& nombre, int grado); // Crear playlist.
     void eliminarPlaylist(const std::string& nombre);         // Eliminar playlist.
-    void renombrarPlaylist(const std::string& nombreActual, const std::string& nuevoNombre); // Renombrar playlist.
-    void transferirCancion(const std::string& origen, const std::string& destino, const std::string& cancion); // Transferir canción entre playlists.
     void mostrarPlaylists();                                   // Mostrar todas las playlists.
+    void agregarCancionAPlaylist(const std::string& playlistNombre);
+    void mostrarCancionesDePlaylist(const std::string& playlistNombre);
     BTree* obtenerPlaylist(const std::string& nombre);         // Obtener una playlist por nombre.
+
+    void cargarPlaylists(); 
 };
 
 #endif // PLAYLIST_H
