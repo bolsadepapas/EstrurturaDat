@@ -177,6 +177,69 @@ Canción agregada exitosamente!
 ```
 -**Comentario**: Como podemos ver aun falta pulir mucho mas los paramentros que se le piden al usuario pero como primer avance es algo significativo, algo importante antes nombrado es que se le agrega el siguiente numero de orden dentro de las filas del **.CSV** lo que es importante para no sobrecargar las filas con informacion sobrescrita. 
 
+## 7.Implementaciones nuevas en el codigo (26/11/2024)
+
+- Para esta fecha el codigo tuvo bastantes mojoras con respecto a la implementacion intuitiva de nuevas funciolandidades, a continuacion veremos cuales son algunas des las funciones mas inportantes en cuanto a la escalavilidad que se espero implementar por parte del codigo en general. 
+
+
+### Muestra de las canciones que se reprodicirian en aleatorio **Visual Estudio Code**
+
+-Al seleccionar una opccion, en este caso la 3 lo que nos muestra es lo siguiente : 
+
+```py
+--- Menú ---
+1. Buscar canción
+2. Agregar canción
+3. Reproducción Aleatoria
+4. Gestión de Playlists
+5. Mostrar Top 100 canciones de un año
+6. Salir
+Seleccione una opción: 3
+
+Reproducción Aleatoria: Estas son las canciones que se reproducirán:
+1. SNBRN - Home
+2. Epik High - I Remember
+3. Wolfgang Amadeus Mozart - "Requiem in D Minor
+4. Maria Papadopoulou - To Teleftaio Gramma
+5. Rauw Alejandro - Algo Mágico
+6. Danger Zone - I to I
+7. Beck - Jack-Ass
+8. Richard Cheese - Buddy Holly
+9. Mayte Gaos - Tic Tac Twist
+10. The Body - Tied Up and Locked In
+```
+-**Comentario**: Como podemos ver al seleccionar la opcion lo que nos muestra es la cola de canciones que contienen la cancion que se esta reproduciendo de forma aleatoria y las que esperan ser reproducidas, todas bajo la logica de la aleatoriedad. 
+
+
+### Muestra del top 100 mejores canciones del año **Visual Estudio Code**
+
+-Al seleccionar una opccion, en este caso la 5 lo que nos muestra es lo siguiente : 
+
+```py
+--- Menú ---
+1. Buscar canción
+2. Agregar canción
+3. Reproducción Aleatoria
+4. Gestión de Playlists
+5. Mostrar Top 100 canciones de un año
+6. Salir
+Seleccione una opción: 5
+Ingrese el año para mostrar las 100 mejores canciones: 2023
+
+Top 100 canciones del año 2023:
+1. Flowers - Miley Cyrus (Popularidad: 100)
+2. Die For You - Remix - The Weeknd (Popularidad: 95)
+3. OMG - NewJeans (Popularidad: 92)
+4. PRC - Peso Pluma (Popularidad: 90)
+5. Tormenta (feat. Bad Bunny) - Gorillaz (Popularidad: 89)
+6. Last Night - Morgan Wallen (Popularidad: 88)
+7. on the street (with J. Cole) - j-hope (Popularidad: 88)
+8. Love Again - The Kid LAROI (Popularidad: 87)
+9. Shorty Party - Cartel De Santa (Popularidad: 87)
+10. Heaven - Niall Horan (Popularidad: 86)
+```
+-**Comentario**: En este caso, se aprobecha mucho la implementacion de orden de las canciones en un B-tree, ya que al mostrar el top de mejores canciones, nos basamos en el nivel de popularidad de la cancion, lo cual es un valor que toma importancia para la logica que surge en respuesta para la seleccion de la opcion 5. 
+
 
 
 
