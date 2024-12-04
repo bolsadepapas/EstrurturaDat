@@ -210,8 +210,8 @@ void PlaylistManager::mostrarPlaylists() {
     }
 }
 void PlaylistManager::guardarPlaylist(const std::string& nombre) {
-    // Crear archivo de texto para la playlist
-    std::ofstream archivo(nombre + ".txt");
+    // Crear archivo de texto para la playlist en la carpeta correcta
+    std::ofstream archivo("./playlists/" + nombre + ".txt");  // Carpeta playlists/
     if (!archivo) {
         std::cerr << "No se pudo guardar la playlist " << nombre << std::endl;
         return;
@@ -234,10 +234,11 @@ void PlaylistManager::guardarPlaylist(const std::string& nombre) {
     }
 }
 
-void PlaylistManager::cargarPlaylists() {
-    const std::string directory = "./playlists/";
 
-    
+void PlaylistManager::cargarPlaylists() {
+    const std::string directory = "./playlists/";  // Carpeta específica para las playlists
+    std::filesystem::create_directory(directory);  // Crear la carpeta si no existe
+
     for (const auto& entry : std::filesystem::directory_iterator(directory)) {
         if (entry.path().extension() == ".txt") {
             std::string playlistName = entry.path().stem().string(); 
@@ -278,6 +279,7 @@ void PlaylistManager::cargarPlaylists() {
         }
     }
 }
+
 
 void PlaylistManager::crearPlaylist(const std::string& nombre, int grado) {
     if (playlists.find(nombre) != playlists.end()) {
@@ -417,4 +419,3 @@ void PlaylistManager::mostrarCancionesDePlaylist(const std::string& playlistNomb
         std::cout << "- " << cancion.track_name << " - " << cancion.artist_name << "\n";
     }
 }
- 
