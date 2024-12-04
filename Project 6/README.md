@@ -211,7 +211,7 @@ Reproducción Aleatoria: Estas son las canciones que se reproducirán:
 -**Comentario**: Como podemos ver al seleccionar la opcion lo que nos muestra es la cola de canciones que contienen la cancion que se esta reproduciendo de forma aleatoria y las que esperan ser reproducidas, todas bajo la logica de la aleatoriedad. 
 
 
-### Muestra del top 100 mejores canciones del año **Visual Estudio Code**
+### Top 100 mejores canciones del año **Visual Estudio Code**
 
 -Al seleccionar una opccion, en este caso la 5 lo que nos muestra es lo siguiente : 
 
@@ -240,6 +240,46 @@ Top 100 canciones del año 2023:
 ```
 -**Comentario**: En este caso, se aprobecha mucho la implementacion de orden de las canciones en un B-tree, ya que al mostrar el top de mejores canciones, nos basamos en el nivel de popularidad de la cancion, lo cual es un valor que toma importancia para la logica que surge en respuesta para la seleccion de la opcion 5. 
 
+### Submenu implementacion de Funciones para Playlist, de usuario **Visual Estudio Code**
+
+-Al seleccionar una opccion, en este caso la 4ta opcion nos despliega un submenu que nos muestra es lo siguiente : 
+
+```py
+--- Menú ---
+1. Buscar canción
+2. Agregar canción
+3. Reproducción Aleatoria
+4. Gestión de Playlists
+5. Mostrar Top 100 canciones de un año
+6. Salir
+Seleccione una opción: 4
+
+--- Submenú de Gestión de Playlists ---
+1. Crear nueva playlist
+2. Eliminar playlist
+3. Mostrar playlists disponibles
+4. Buscar y agregar canciones a una playlist
+5. Regresar al menú principal
+Seleccione una opción:
+```
+-**Comentario**: Cuando se selelciona esta opcion, lo que nos muestra es un submeni especializado en la gestion unica de playlist dedicada a usuarios, donde se pueden realizar acciones como crear una nueva playlist, eliminar una playlist, mostrar las playlists disponibles, buscar y agregar canciones a una playlist, este submenu esta orientado a ofrecer una experiencia mas completa y personalizada para el usuario. 
+
+## 8. Exploracion del submenu de gestion de Playlist de usuario (30/11/2024)
+
+- Para la fecha el codigo ya tiene un submenu corregido y con las funciones totalmente pulidas para la gestion de las playlist que desee crear, buscar, y eliminar el usuario, este menu lo que buscar es crear una mejor experiencia con los usuarios que vaya a tener este codigo. 
+
+-Aqui podemos ver las funciones que tiene ofrece el sumenu iteractivo de gestion de Playlists : 
+
+```py
+--- Submenú de Gestión de Playlists ---
+1. Crear nueva playlist
+2. Eliminar playlist
+3. Mostrar playlists disponibles
+4. Buscar y agregar canciones a una playlist
+5. Regresar al menú principal
+Seleccione una opción:
+```
+-**Comentario**: Al seleccionar cualquiera de las opciones lo que se despliega es la logica que implica el que se haya seleccionado alguno de los items del submenu, por ejemplo si se selecciona la opcion 1, se despliega la logica para crear una nueva playlist, si se selecciona la opcion 2, se despliega la logica para eliminar una playlist, y asi sucesivamente. es importante recalcar que el codigo aun puede presentar fallas. 
 
 
 
