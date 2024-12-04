@@ -65,7 +65,6 @@ public:
 class PlaylistManager {
     std::map<std::string, BTree> playlists; 
 
-
     void guardarPlaylist(const std::string& nombre);
     void cargarPlaylist(const std::string& nombre);
 

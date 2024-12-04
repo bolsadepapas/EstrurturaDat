@@ -358,7 +358,7 @@ if (resultados.size() > 1) {
     Cancion selectedSong = resultados[opcion - 1];
 
     // Abre el archivo de la playlist en modo append
-    std::ofstream playlistFile("ID_Folk.txt", std::ios::app);  // Cambia "ID_Folk.txt" por el nombre correcto de tu playlist
+    std::ofstream playlistFile("MR", std::ios::app);  // Cambia "ID_Folk.txt" por el nombre correcto de tu playlist
     
     if (playlistFile.is_open()) {
         // Escribimos la información de la canción en el archivo
@@ -369,7 +369,7 @@ if (resultados.size() > 1) {
                      << selectedSong.popularity << ","
                      << selectedSong.year << std::endl;
         playlistFile.close();  // Cerramos el archivo después de escribir
-        std::cout << "Canción añadida a la playlist \"" << "ID_Folk" << "\"." << std::endl;  // Asegúrate de poner el nombre correcto
+        std::cout << "Canción añadida a la playlist \"" << "MR" << "\"." << std::endl;  // Asegúrate de poner el nombre correcto
     } else {
         std::cerr << "No se pudo abrir el archivo de la playlist para agregar la canción.\n";
     }
@@ -394,8 +394,11 @@ void PlaylistManager::agregarCancionAPlaylist(const std::string& playlistNombre)
     Cancion cancion = buscarCancionEnBaseDatos(termino);
     if (cancion.track_name.empty()) return; // Canción no encontrada o selección inválida
 
-    playlist->insert(cancion);
+    playlist->insert(cancion); // Insertar la canción en la memoria (BTree)
+    
+    // Guardar la playlist actualizada en su archivo correspondiente
     guardarPlaylist(playlistNombre);
+    
     std::cout << "Canción añadida a la playlist \"" << playlistNombre << "\".\n";
 }
 
